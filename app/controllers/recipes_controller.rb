@@ -62,12 +62,22 @@ class RecipesController < ApplicationController
   end
 
   def vote_up
-    Vote.create!(recipe: @recipe, up: true)
+    previous_votes = []
+    previous_votes = JSON.parse(cookies[:votes]) if cookies[:votes]
+    unless previous_votes.include?(@recipe.id)
+      Vote.create!(recipe: @recipe, up: true)
+      cookies[:votes] = JSON.generate(previous_votes << @recipe.id)
+    end
     redirect_to :back
   end
 
   def vote_down
-    Vote.create!(recipe: @recipe, up: false)
+    previous_votes = []
+    previous_votes = JSON.parse(cookies[:votes]) if cookies[:votes]
+    unless previous_votes.include?(@recipe.id)
+      Vote.create!(recipe: @recipe, up: false)
+      cookies[:votes] = JSON.generate(previous_votes << @recipe.id)
+    end
     redirect_to :back
   end
 
