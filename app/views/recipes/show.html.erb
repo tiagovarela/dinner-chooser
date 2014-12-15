@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @recipe.name %>
+</p>
+
+<p>
+  <strong>Submitter:</strong>
+  <%= @recipe.submitter %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @recipe.url %>
+</p>
+
+<%= link_to 'Vote up', vote_up_recipe_path(@recipe), method: :post %> |
+<%= link_to 'Vote down', vote_down_recipe_path(@recipe), method: :post %>
+
+<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= link_to 'Back', recipes_path %>

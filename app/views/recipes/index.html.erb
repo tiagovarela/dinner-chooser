@@ -1,0 +1,33 @@
+<h1>Listing recipes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Submitter</th>
+      <th>Url</th>
+      <th>Rank</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recipes.each do |recipe| %>
+      <tr>
+        <td><%= recipe.name %></td>
+        <td><%= recipe.submitter %></td>
+        <td><%= recipe.url %></td>
+        <td><%= recipe.rank %></td>
+        <td><%= link_to 'Vote Up', vote_up_recipe_path(recipe), method: :post %></td>
+        <td><%= link_to 'Vote Down', vote_down_recipe_path(recipe), method: :post %></td>
+        <td><%= link_to 'Show', recipe %></td>
+        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
+        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recipe', new_recipe_path %>
