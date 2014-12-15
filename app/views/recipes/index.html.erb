@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Name</th>
       <th>Submitter</th>
       <th>Url</th>
@@ -14,6 +15,7 @@
   <tbody>
     <% @recipes.each do |recipe| %>
       <tr>
+        <td><img src="<%= recipe.image_url %>"></td>
         <td><%= recipe.name %></td>
         <td><%= recipe.submitter %></td>
         <td><%= recipe.url %></td>
