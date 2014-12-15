@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141215181507) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_url"
   end
 
   create_table "votes", force: true do |t|
