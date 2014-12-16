@@ -1,24 +1,13 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :vote_up, :vote_down]
 
-  # GET /recipes
-  # GET /recipes.json
   def index
-    @recipes = Recipe.all
-  end
-
-  # GET /recipes/1
-  # GET /recipes/1.json
-  def show
+    @recipes = ordered_recipes
   end
 
   # GET /recipes/new
   def new
     @recipe = Recipe.new
-  end
-
-  # GET /recipes/1/edit
-  def edit
   end
 
   # POST /recipes
@@ -28,36 +17,15 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       if @recipe.save
+        @recipes = ordered_recipes
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
+        format.js   { render :create }
       else
         format.html { render :new }
         format.json { render json: @recipe.errors, status: :unprocessable_entity }
+        format.js   { render :new }
       end
-    end
-  end
-
-  # PATCH/PUT /recipes/1
-  # PATCH/PUT /recipes/1.json
-  def update
-    respond_to do |format|
-      if @recipe.update(recipe_params)
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recipe }
-      else
-        format.html { render :edit }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /recipes/1
-  # DELETE /recipes/1.json
-  def destroy
-    @recipe.destroy
-    respond_to do |format|
-      format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -68,7 +36,13 @@ class RecipesController < ApplicationController
       Vote.create!(recipe: @recipe, up: true)
       cookies[:votes] = JSON.generate(previous_votes << @recipe.id)
     end
-    redirect_to :back
+
+    @recipes = ordered_recipes
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js   { render 'vote' }
+    end
   end
 
   def vote_down
@@ -78,10 +52,20 @@ class RecipesController < ApplicationController
       Vote.create!(recipe: @recipe, up: false)
       cookies[:votes] = JSON.generate(previous_votes << @recipe.id)
     end
-    redirect_to :back
+
+    @recipes = ordered_recipes
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js   { render 'vote' }
+    end
   end
 
   private
+    def ordered_recipes
+      @recipes = Recipe.all.sort_by(&:rank).reverse
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
       @recipe = Recipe.find(params[:id])

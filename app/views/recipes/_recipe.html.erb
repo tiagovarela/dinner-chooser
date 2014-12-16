@@ -1,0 +1,41 @@
+<tr>
+  <td>
+    <div class="rank-wrapper">
+      <p class="recipe-rank"><%= recipe.rank %></p>
+    </div>
+  </td>
+  <td>
+    <div class="image-wrapper">
+      <a href="<%= recipe.url %>" title="">
+        <img class="recipe-image" src="<%= recipe.image_url %>" width="100px">
+      </a>
+    </div>
+  </td>
+  <td>
+    <div class="name-wrapper">
+      <%= link_to recipe.name, recipe.url, class: 'recipe-name' %>
+    </div>
+  </td>
+  <td>
+    <div class="submitter-wrapper">
+      <p class="recipe-submitter"><%= recipe.submitter %></p>
+    </div>
+  </td>
+  <td>
+    <div class="vote-wrapper">
+      <div class="recipe-vote">
+        <% if already_voted? recipe %>
+          <i class="fa fa-thumbs-up fa-3 disable"></i>
+          <i class="fa fa-thumbs-down fa-3 disable"></i>
+        <% else %>
+          <%= link_to(vote_up_recipe_path(recipe), remote: true, method: :post) {
+            %{<i class="fa fa-thumbs-up fa-3"></i>}.html_safe
+          } %>
+          <%= link_to(vote_down_recipe_path(recipe), remote: true, method: :post) {
+            %{<i class="fa fa-thumbs-down fa-3"></i>}.html_safe
+          } %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>
