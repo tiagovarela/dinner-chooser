@@ -39,3 +39,7 @@ gem 'spring',        group: :development
 gem 'byebug', group: [:development, :test]
 
 gem 'mechanize'
+
+gem 'mina'
+gem 'mina-unicorn', :require => false
+gem 'unicorn'
