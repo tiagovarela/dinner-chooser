@@ -26,6 +26,12 @@ class Recipe < ActiveRecord::Base
     elsif url =~ /saborintenso\.com/
       page = mechanize.get(url)
       self.image_url = page.search("//div[@id='posts']//div[@align='center']//img/@src").to_a.select{|i| i.to_s =~ /images\/receitas/}.first.text
+    elsif url =~ /1001receitas\.com/
+      page = mechanize.get(url)
+      self.image_url = page.search("//img[@itemprop='photo']/@src").text
+    elsif url =~ /lifestyle\.sapo\.pt/
+      page = mechanize.get(url)
+      self.image_url = page.search("//div[@class='bottom-space thumb']//img/@data-src").text
     end
   end
 end
