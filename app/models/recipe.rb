@@ -35,6 +35,12 @@ class Recipe < ActiveRecord::Base
     elsif url =~ /teleculinaria\.pt/
       page = mechanize.get(url)
       self.image_url = "http://www.teleculinaria.pt" + page.search("//img[@class='ImagemDetalhe ImagemDetalheBIG Traduzir box-sh']/@src").text
+    elsif url =~ /myrestaurant\.pt/
+      page = mechanize.get(url)
+      self.image_url = page.search("//img[@typeof='foaf:Image']/@src").first.text
+    elsif url =~ /receitas-de-bacalhau\.info/
+      page = mechanize.get(url)
+      self.image_url = page.search("//div[@class='post-thumbnail']/img[@class='attachment-post-thumbnail wp-post-image']/@src").text
     end
   end
 end
