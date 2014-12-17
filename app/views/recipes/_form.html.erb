@@ -8,6 +8,6 @@
   <fieldset>
     <input name="recipe[name]" type="text" class="pure-input-1-3" placeholder="Recipe name" required>
     <input name="recipe[submitter]" type="text" class="pure-input-1-3" placeholder="Your name" required>
-    <button type="submit" class="pure-button pure-button-primary">Add Recipe!</button>
+    <%= submit_tag "Add Recipe!", class: "pure-button pure-button-primary", data: { disable_with: "Please wait..." } %>
   </fieldset>
 <% end %>
