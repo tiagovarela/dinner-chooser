@@ -32,6 +32,9 @@ class Recipe < ActiveRecord::Base
     elsif url =~ /lifestyle\.sapo\.pt/
       page = mechanize.get(url)
       self.image_url = page.search("//div[@class='bottom-space thumb']//img/@data-src").text
+    elsif url =~ /teleculinaria\.pt/
+      page = mechanize.get(url)
+      self.image_url = "http://www.teleculinaria.pt" + page.search("//img[@class='ImagemDetalhe ImagemDetalheBIG Traduzir box-sh']/@src").text
     end
   end
 end
