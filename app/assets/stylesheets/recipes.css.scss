@@ -49,6 +49,11 @@ td {
   margin-right: auto;
   padding: 20px 10px;
   position: relative;
+
+  img {
+    max-height: 100px;
+    max-width: 100px;
+  }
 }
 
 .recipe-image, .recipe-name, .recipe-submitter, .recipe-vote, .recipe-rank, #add_recipe_link {
