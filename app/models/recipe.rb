@@ -41,6 +41,9 @@ class Recipe < ActiveRecord::Base
     elsif url =~ /receitas-de-bacalhau\.info/
       page = mechanize.get(url)
       self.image_url = page.search("//div[@class='post-thumbnail']/img[@class='attachment-post-thumbnail wp-post-image']/@src").text
+    elsif url =~ /cincoquartosdelaranja\.com/
+      page = mechanize.get(url)
+      self.image_url = page.search("//div[@class='post-body entry-content']//img").first.search('@src').text
     end
   end
 end
